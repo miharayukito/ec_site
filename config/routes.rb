@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users
+  get :mypage, to: 'mypage#index'
   resources :tags, expect: :show
   resources :books
+  resources :products, only:[:index, :show]
+  resources :orders, only:[:index, :new, :create] do
+    collection do
+      post :confirm
+      get :complete
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
