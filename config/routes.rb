@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   resources :tags, expect: :show
   resources :books
   resources :products, only:[:index, :show]
-  resources :orders, only:[:index, :new, :create] do
+  resources :orders, only:[:new, :create] do
     collection do
-      post :confirm
+      get :confirm
       get :complete
     end
   end

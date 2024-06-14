@@ -1,38 +1,31 @@
 class OrdersController < ApplicationController
-    def index
-        @orders = Order.all
-    end
 
     def new
         @order = Order.new
-        @book = Book.find(params[:id])
+        @book = Book.find(params[:format])
     end
 
     def confirm
         @order = Order.new(order_params)
-        @book = Book.find(params[:id])
+        @book = Book.find(@order.book_id)
     end
 
-    def complete
-    end
-
+    
     def create
-        @order = Order.new(order_params)
-
-        if params[:back].present?
-            render :new
+        @order = Order.new(order_params) 
+        if @order.save
+            redirect_to complete_orders_path
         else
-            if @order.save
-                redirect_to complete_orders_path, notice: '購入が完了しました。'
-            else
-                render :new
-            end
+            render :"confirm"
         end
+    end
+                
+    def complete
     end
 
     private
 
     def order_params
-        params.require(:order).permit(:title, :author, :published_on, :showimg, :price)
+        params.require(:order).permit(:count, :address, :book_id)
     end
 end

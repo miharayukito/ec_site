@@ -1,1 +1,10 @@
 <h1>注文確認</h1>
+<%= form_with(model: @order, local: true) do |form| %>
+<p>商品名:<%= @book.title %></p>
+
+<p>個数: <%= @order.count %></p>
+<p>お届け先住所: <%= @order.address %></p>
+
+<%= link_to '修正する', new_order_path(@book) %>
+<%= link_to '注文を確定する', complete_orders_path %>
+<% end %>
