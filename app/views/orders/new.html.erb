@@ -1,15 +1,12 @@
 <h2>購入手続き</h2>
 
-<p>商品名:<%= @book.title %></p>
-
 <%= form_with(model: @order, local: true, url: confirm_orders_path, method: :get) do |form| %>
+
+  <p>商品名:<%= @book.title %></p>
 
   <div class="field">
     <%= form.label :個数 %></br>
     <%= form.text_field :count %>
-    <% if @order.errors.has_key?(:count) %>
-      <p class="error"><%= @order.errors[:count].first %></p>
-    <% end %>
   </div>
 
   <div class="field">
@@ -21,6 +18,8 @@
     <%= form.hidden_field :book_id, value: @book.id %>
   </div>
 
-  <%= form.submit "注文確認へ" %>
+  <div class="actions">
+    <%= form.submit "注文確認へ" %>
+  </div>
 
 <% end %>
