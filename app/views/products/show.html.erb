@@ -9,6 +9,6 @@
   <%= @book.tags.map(&:name).join(', ') %>
 </p>
 
-<%= button_to "購入手続きへ", new_order_path(@book), method: :get %> </br>
+<%= link_to "購入", new_order_path(@book) %> </br>
 
 <%= link_to "一覧に戻る", products_path %>
