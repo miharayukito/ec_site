@@ -19,8 +19,9 @@ class OrdersController < ApplicationController
             render :"confirm"
         end
     end
-                
+    
     def complete
+        CompleteMailer.complete_mail(current_user).deliver_now
     end
 
     private

@@ -55,6 +55,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   # Use gimei for generating a Japanese fake name
   gem 'gimei'
+  gem 'dotenv-rails'
 end
 
 group :development do
