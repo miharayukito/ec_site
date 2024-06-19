@@ -1,10 +1,21 @@
 <p style="color: green"><%= notice %></p>
 
+<p>
+   <% if @book.photo.attached? %>
+   <%= image_tag @book.thumbnail %>
+   <% end %>
+</p>
+
 <%= render @book %>
 
 <p>
   <strong>タグ</strong>
   <%= @book.tags.map(&:name).join(', ') %>
+</p>
+
+<p>
+<strong>Status</strong>
+<td><%= @book.status %></td>
 </p>
 
 <div>

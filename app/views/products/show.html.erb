@@ -4,11 +4,18 @@
 <h2>商品詳細</h2>
 <%= render @book %>
 
+<strong>Status</strong>
+<td><%= @book.status %></td>
+
 <p>
   <strong>タグ</strong>
   <%= @book.tags.map(&:name).join(', ') %>
 </p>
 
-<%= link_to "購入", new_order_path(@book) %> </br>
+<% if @book.on_sale? %>
+  <%= link_to "購入", new_order_path(@book) %> </br>
+<% elsif @book.sold_out? %>
+  <strong>現在品切れ中です</strong></br>
+<% end %>
 
 <%= link_to "一覧に戻る", products_path %>

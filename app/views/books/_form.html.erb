@@ -39,6 +39,22 @@
   <div class="fields">
     <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name %>
   </div>
+  <br>
+
+  <div class="field">
+   <%= form.file_field :photo %>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= form.label :status, "Status:" %><br>
+    <%= form.radio_button :status, :on_sale %>
+    <%= form.label :status_on_sale, "On Sale" %><br>
+    <%= form.radio_button :status, :sold_out %>
+    <%= form.label :status_sold_out, "Sold Out" %><br>
+  </div>
+  <br>
+
 
   <div>
     <%= form.submit %>

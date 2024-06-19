@@ -4,7 +4,19 @@
 
 <div id="books">
   <% @books.each do |book| %>
+
+    <p>
+    <% if book.photo.attached? %>
+    <%= image_tag book.thumbnail %>
+    <% end %>
+    </p>
+
     <%= render book %>
+    
+    <p>
+    <strong>Status</strong>
+    <%= book.status %>
+    </p>
     <p>
       <%= link_to "Show this book", book %>
     </p>
