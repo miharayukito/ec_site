@@ -13,7 +13,7 @@
 </p>
 
 <% if @book.on_sale? %>
-  <%= link_to "購入", new_order_path(@book) %> </br>
+  <%= link_to "カートに入れる", line_items_path(book_id: @book.id), data:{"turbo-method": :post}, class: 'btn btn-default' %> </br>
 <% elsif @book.sold_out? %>
   <strong>現在品切れ中です</strong></br>
 <% end %>

@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get :mypage, to: 'mypage#index'
   resources :tags, expect: :show
   resources :books
+  resources :carts, only:[:show, :destroy]
   resources :products, only:[:index, :show]
+  resources :line_items, only:[:create]
   resources :orders, only:[:new, :create] do
     collection do
       get :confirm
