@@ -2,16 +2,14 @@ class OrdersController < ApplicationController
 
     def new
         @order = Order.new
-        @book = Book.find(params[:format])
+        @books = @current_cart.books
 
-        if @book.sold_out?
-            redirect_to products_path
-        end
     end
 
     def confirm
         @order = Order.new(order_params)
-        @book = Book.find(order_params[:book_id])
+        @books = Book.where(order_params[:book_id])
+        @line_items = @current_cart.line_items
 
         if @book.sold_out?
             redirect_to products_path

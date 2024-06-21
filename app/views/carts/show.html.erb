@@ -4,7 +4,7 @@
       <p><%= book.title %></p>
       <p><%= line_item.quantity %>冊</p>
       <p>
-        <%= line_item.total_price %>
+        <%= line_item.total_price_book %>
         <span>円 (税込)</span>
       </p>
     </div>
@@ -21,5 +21,6 @@
   <% if @line_items.count == 0 %>
     カートには何も入っていません。
   <% else %>
-     <%= link_to 'カートを空にする', @cart, data: { "turbo-method": :delete, "turbo-confirm": 'カートの中身をすべて削除してもいいですか？' } %> >
+    <%= link_to '購入する', new_order_path %><br>
+    <%= link_to 'カートを空にする', @cart, data: { "turbo-method": :delete, "turbo-confirm": 'カートの中身をすべて削除してもいいですか？' } %> >
   <% end %>

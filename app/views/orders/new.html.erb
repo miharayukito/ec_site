@@ -1,25 +1,35 @@
-<h2>購入手続き</h2>
-
 <%= form_with(model: @order, local: true, url: confirm_orders_path, method: :get) do |form| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+        <% @order.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-  <p>商品名:<%= @book.title %></p>
+<% @books.each do |book|%>
+  商品名：<%= book.title %>
 
   <div class="field">
-    <%= form.label :個数 %></br>
-    <%= form.text_field :count %>
+    <%= form.label :個数 %>
+    <%= form.text_field :count, name: "counts[]", value: LineItem.find_by(cart_id: @current_cart, book_id: book).quantity %>
   </div>
 
+<div class="field">
+    <%= form.hidden_field :book_id, value: book.id, name: 'book_ids[]' %>
+  </div>
+
+<% end %>
+
   <div class="field">
-    <%= form.label :お届け先住所 %></br>
+    <%= form.label :住所 %>
     <%= form.text_field :address %>
   </div>
 
-  <div class="field">
-    <%= form.hidden_field :book_id, value: @book.id %>
-  </div>
-
   <div class="actions">
-    <%= form.submit "注文確認へ" %>
+    <%= form.submit '次へ' %>
   </div>
-
 <% end %>
