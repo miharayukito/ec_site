@@ -5,11 +5,11 @@ class OrdersController < ApplicationController
         #@book = Book.find(params[:format])
         @books = @current_cart.books
 
-        @books.each do |book|
-            if book.sold_out?
-                redirect_to products_path
-            end
-        end
+        # @books.each do |book|
+        #     if book.sold_out?
+        #         redirect_to products_path
+        #     end
+        # end
     end
 
     def confirm
@@ -28,12 +28,13 @@ class OrdersController < ApplicationController
 
     
     def create
-        @order = Order.new(order_params) 
+        count = params[:order][:count].to_i
+        @order = Order.new(address: order_params[:address], count: count)
+        @books = Book.where(order_params[:book_id])
         if @order.save
             OrderDetail.create_items(@order, @current_cart.line_items)
-            @book = Book.find(order_params[:book_id])
-            @book.sold_out!
-            redirect_to complete_order_path(@order)
+            @ここから.sold_out!
+             redirect_to complete_order_path(@order)
         else
             redirect_to new_order_path, alert: '注文の登録ができませんでした'  
         end
