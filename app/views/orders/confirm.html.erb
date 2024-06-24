@@ -1,24 +1,55 @@
-<h1>注文確認</h1>
+<h2>注文内容確認</h2>
+
 <%= form_with(model: @order, local: true) do |form| %>
+  <% if @order.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@order.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+        <ul>
+          <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
+
+<%# @books.each do |book| %>
+<!--    <div class="field"> -->
+    <%#= form.hidden_field :book_id, value: book.id %>
+<!--    </div>-->
+<%# end %>
 
   <div class="field">
-    <p><%= form.label :タイトル %></p>
-    <%= @book.title %>
-    <%= form.hidden_field :book_id, value: @book.id %>
+    <%= form.hidden_field :count, value: @current_cart.total_number %>
+  </div>
+
+  <% @line_items.each do |line_item| %>
+    <% book = line_item.book %>
+    <div>
+      <p>商品:<%= book.title %></p>
+      <p>個数:<%= line_item.quantity %>冊</p>
+      <p>値段:
+        <%= line_item.total_price_book %>
+        <span>円 (税込)</span>
+      </p>
+      <br>
+    </div>
+  <% end %>
+  
+  <div>
+    <p>合計冊数: <%= @current_cart.total_number %><span>冊</span></p>
+    <p>合計価格:
+      <%= @current_cart.total_price %>
+      <span>円 (税込)</span>
+    </p>
   </div>
 
   <div class="field">
-    <p><%= form.label :個数 %></p>
-    <%= @order.count %>
-    <%= form.hidden_field :count %>
-  </div>
-
-  <div class="field">
-    <p><%= form.label :住所 %></p>
-    <%= @order.address %>
+    <p><%= form.label :住所 %>
+    :<%= @order.address %></p>
     <%= form.hidden_field :address %>
   </div>
-
+  <br>    
   <div class="actions">
     <%= form.submit '注文を確定する' %>
   </div>
