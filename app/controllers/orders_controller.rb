@@ -30,11 +30,12 @@ class OrdersController < ApplicationController
     def create
         count = params[:order][:count].to_i
         @order = Order.new(address: order_params[:address], count: count)
-        @books = Book.where(order_params[:book_id])
+        @books = Book.where(order_params[:book_ids])
+        @line_items = @current_cart.line_items
         if @order.save
-            OrderDetail.create_items(@order, @current_cart.line_items)
-            @current_cart.books.each do |book|
-                @books.sold_out!
+            OrderDetail.create_items(@order, @line_items)
+            @line_items.each do |item|
+                item.book.sold_out!
             end
              redirect_to complete_order_path(@order)
         else

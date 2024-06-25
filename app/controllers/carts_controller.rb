@@ -8,4 +8,9 @@ before_action :current_cart
         session[:cart_id] = nil
         redirect_to products_path
     end
+
+    private
+    def product_params
+        params.require(:product).permit(:photo)
+    end
 end

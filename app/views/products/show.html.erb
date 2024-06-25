@@ -2,18 +2,27 @@
 <p style="color: green"><%= notice %></p>
 
 <h2>商品詳細</h2>
-<%= render @book %>
-
-<strong>Status</strong>
-<td><%= @book.status %></td>
 
 <p>
-  <strong>タグ</strong>
-  <%= @book.tags.map(&:name).join(', ') %>
+   <% if @book.photo.attached? %>
+   <%= image_tag @book.thumbnail %>
+   <% end %>
+</p>
+
+<%= render @book %>
+
+<p>
+<strong>Status:</strong>
+<% if @book.on_sale? %>
+  <span style="color: green;"><%= "在庫あり" %></span>
+<% elsif @book.sold_out? %>
+  <sapn style="color: red;"><%= "在庫なし" %></span>
+<% end %>
 </p>
 
 <% if @book.on_sale? %>
-  <%= link_to "カートに入れる", line_items_path(book_id: @book.id), data:{"turbo-method": :post}, class: 'btn btn-default' %> </br>
+  <%= button_to "カートに入れる", line_items_path(book_id: @book.id), data:{"turbo-method": :post}, class: 'btn btn-default',
+  style: 'border: 2px solid black; background-color: yellow; padding: 5px;'%> <br>
 <% elsif @book.sold_out? %>
   <strong>現在品切れ中です</strong></br>
 <% end %>

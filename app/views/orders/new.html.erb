@@ -23,11 +23,10 @@
 <div class="field">
     <%= form.hidden_field :book_id, value: book.id, name: 'order[book_ids][]' %>
   </div>
-
 <% end %>
-
+  <br>
   <div class="field">
-    <%= form.label :住所 %>
+    <%= form.label :お届け先住所 %><br>
     <%= form.text_field :address %>
   </div>
 

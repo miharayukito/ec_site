@@ -2,9 +2,10 @@
 <% @line_items.each do |line_item| %>
     <% book = line_item.book %>
     <div>
-      <p><%= book.title %></p>
-      <p><%= line_item.quantity %>冊</p>
-      <p>
+      <p><%= image_tag book.thumbnail %></p>
+      <p>商品名:<%= book.title %></p>
+      <p>個数:<%= line_item.quantity %>冊</p>
+      <p>小計:
         <%= line_item.total_price_book %>
         <span>円 (税込)</span>
       </p>
@@ -12,6 +13,7 @@
   <% end %>
   
   <div>
+    <p>--------------------------</p>
     <p>注文数: <%= @current_cart.total_number %><span>冊</span></p>
     <p>
       合計金額:<%= @current_cart.total_price %>
@@ -22,6 +24,6 @@
   <% if @line_items.count == 0 %>
     カートには何も入っていません。
   <% else %>
-    <%= link_to '購入する', new_order_path %><br>
+    <%= link_to '購入手続きへ', new_order_path %><br>
     <%= link_to 'カートを空にする', @cart, data: { "turbo-method": :delete, "turbo-confirm": 'カートの中身をすべて削除してもいいですか？' } %> >
   <% end %>
