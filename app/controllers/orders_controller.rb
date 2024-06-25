@@ -33,7 +33,9 @@ class OrdersController < ApplicationController
         @books = Book.where(order_params[:book_id])
         if @order.save
             OrderDetail.create_items(@order, @current_cart.line_items)
-            @ここから.sold_out!
+            @current_cart.books.each do |book|
+                @books.sold_out!
+            end
              redirect_to complete_order_path(@order)
         else
             redirect_to new_order_path, alert: '注文の登録ができませんでした'  
@@ -41,7 +43,7 @@ class OrdersController < ApplicationController
     end
     
     def complete
-        @order = Order.find(params[:id])
+        @Order = Order.find(params[:id])
         CompleteMailer.complete_mail(current_user).deliver
     end
 
