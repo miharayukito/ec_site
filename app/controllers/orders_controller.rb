@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
     end
 
     def confirm
+        puts order_params[:count]
         counts = order_params[:count]
         @order = Order.new(order_params)
         @books = Book.where(order_params[:book_id])

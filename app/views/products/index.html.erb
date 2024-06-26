@@ -1,38 +1,72 @@
-<p style="color: green"><%= notice %></p>
+<head>
+  <title>商品一覧</title>
+  <style>
+  
+    .page-heading {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    .fixed-bottom-right {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+    .status-on-sale {
+      color: green;
+    }
+    .status-sold-out {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>ログイン中：<%= link_to current_user.email, mypage_path %></p>
+    
+    <div class="page-heading">
+      <h1>商品一覧</h1>
+    </div>
 
-<h1>Books</h1>
-
-<table style="width: 55%;">
-  <thead>
-    <tr>
-      <th>Photo</th>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Published on</th>
-      <th>Status</th>
-      <th>Price</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-      <% @books.each do |book| %>
+    <table class="table table-striped">
+      <thead class="thead-dark">
         <tr>
-        <% if book.photo.attached? %>
-          <td><%= image_tag book.thumbnail %></td>
-        <% end %>
-          <td><%= book.title %></td>          
-          <td><%= book.author %></td>          
-          <td><%= book.published_on %></td> 
-          <td><%= book.status %></td>
-          <td><%= book.price %></td>          
-        
-          <td><%= link_to "Show this book", product_path(book) %></td>
+          <th>Photo</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Published on</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>Action</th>
         </tr>
-      <% end %>
-  </tbody>
-</table>
-<br>
-<% if session[:cart_id] %>
-  <%= link_to 'カートを見る', cart_path(session[:cart_id]) %>
-<% end %>
+      </thead>
+
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <td>
+              <% if book.photo.attached? %>
+                <%= link_to image_tag(book.thumbnail, class: "img-thumbnail"), product_path(book) %>
+              <% end %>
+            </td>
+            <td><%= book.title %></td>          
+            <td><%= book.author %></td>          
+            <td><%= book.published_on %></td> 
+            <td><%= book.status %></td>
+            <td><%= book.price %></td>          
+            <td><%= link_to "Details", product_path(book), class: "btn btn-sm btn-primary" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <% if session[:cart_id] %>
+    <div class="fixed-bottom-right">
+      <%= link_to 'カートを見る', cart_path(session[:cart_id]), class: "btn btn-warning btn-lg btn-outline-dark" %>
+    </div>
+  <% end %>
+
+</body>
+</html>

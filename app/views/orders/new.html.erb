@@ -1,3 +1,5 @@
+<div class="container">
+
 <h2>注文内容編集</h2>
 
 <%= form_with(model: @order, local: true, url: confirm_orders_path, method: :get) do |form| %>
@@ -13,13 +15,15 @@
   <% end %>
 
 <% @books.each do |book|%>
+   <p><%= image_tag book.thumbnail %></p>
   商品名：<%= book.title %>
 
   <div class="field">
     <%= form.label :個数 %>
-    <%= form.select :count, options_for_select((1..10).to_a, LineItem.find_by(cart_id: @current_cart, book_id: book).quantity) %>
+    <%= form.select :count, options_for_select((1..10).to_a, 
+    LineItem.find_by(cart_id: @current_cart, book_id: book).quantity), {}, name: "order[count][]" %>
   </div>
-
+<br>
 <div class="field">
     <%= form.hidden_field :book_id, value: book.id, name: 'order[book_ids][]' %>
   </div>

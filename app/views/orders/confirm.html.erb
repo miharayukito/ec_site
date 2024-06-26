@@ -26,6 +26,7 @@
   <% @line_items.each do |line_item| %>
     <% book = line_item.book %>
     <div>
+      <p><%= image_tag book.thumbnail %></p>
       <p>商品:<%= book.title %></p>
       <p>個数:<%= line_item.quantity %>冊</p>
       <p>値段:
@@ -52,7 +53,7 @@
   </div>
   <br>    
   <div class="actions">
-    <%= form.submit '注文を確定する' %>
+    <%= form.submit '注文を確定する', class: "btn btn-warning btn-outline-dark"  %>
   </div>
 <% end %>
 <br>
