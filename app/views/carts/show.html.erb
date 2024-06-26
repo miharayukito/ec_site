@@ -27,3 +27,5 @@
     <%= link_to '購入手続きへ', new_order_path %><br>
     <%= link_to 'カートを空にする', @cart, data: { "turbo-method": :delete, "turbo-confirm": 'カートの中身をすべて削除してもいいですか？' } %> >
   <% end %>
+
+  <p><%= link_to "一覧に戻る", products_path %></p>

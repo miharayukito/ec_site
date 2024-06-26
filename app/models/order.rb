@@ -10,6 +10,6 @@ class Order < ApplicationRecord
         order_details.sum {|order| order.quantity }
     end
 
-    validates :count, presence: true, numericality: {only_integer: true, greater_than: 0}
+    #validates :count, presence: true, numericality: {only_integer: true, greater_than: 0}
     validates :address, presence: true
 end

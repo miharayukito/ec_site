@@ -17,7 +17,7 @@
 
   <div class="field">
     <%= form.label :個数 %>
-    <%= form.text_field :count, name: "order[count][]", value: LineItem.find_by(cart_id: @current_cart, book_id: book).quantity %>
+    <%= form.select :count, options_for_select((1..10).to_a, LineItem.find_by(cart_id: @current_cart, book_id: book).quantity) %>
   </div>
 
 <div class="field">
@@ -34,3 +34,5 @@
     <%= form.submit '次へ' %>
   </div>
 <% end %>
+
+<p><%= link_to 'カート詳細へ戻る', cart_path(session[:cart_id]) %></p>
